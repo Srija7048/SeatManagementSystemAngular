@@ -21,6 +21,8 @@ export class SeatComponent implements OnInit {
   remaining:any=0;
   bookings:any;
   bookedseats=[];
+  seatavailable:boolean=true;
+  canbook:boolean=true;
   public sevenSeater = [1, 2, 3, 4, 5, 6, 7];
   public threeSeater = [1, 2, 3];
 
@@ -47,14 +49,24 @@ export class SeatComponent implements OnInit {
   }
 
   selectseats(){
+    if(this.noofseats<=6){
+      this.canbook=true;
+    }
+    else{
+      this.canbook=false;
+    }
+    if(this.noofseats>this.remaining){
+      this.seatavailable=false;
+    }
+    else if(this.noofseats<=this.remaining && this.canbook==true){
+      this.seatavailable=true;
     this.resseats=this.bookservice.bookseats(this.noofseats);
     this.remaining=this.resseats[1];
     this.bookedseats=this.resseats[0];
     let books=[];
     books.unshift({time:Date.now(),seats:this.bookedseats});
     this.bookings=books;
-    console.log(this.bookedseats);
-    this.bookservice.updatedata(this.bookedseats);
+    this.bookservice.updatedata(this.bookedseats);}
 
 
 

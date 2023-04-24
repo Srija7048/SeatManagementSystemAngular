@@ -80,9 +80,7 @@ export class BookseatService {
     for(let i of seats){
       let row1=Math.floor(i/8);
       this.dataStore.seatChart[row1].rowbooked+=1;
-      console.log(this.dataStore.seatChart[row1],i);
       this._data.next(this.dataStore);
-      console.log(this._data.value)
 
     }
 

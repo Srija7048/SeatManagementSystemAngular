@@ -1,18 +1,24 @@
 
-<div class="col-sm-7">
+<div class="col-sm-7"><br>
+    <p *ngIf="seatavailable==false" [ngStyle]="{'color': 'red'}"><strong>Choose available number of seats</strong></p><br>
+    <button (click)="selectseats()">Select Seats</button>
+
+    <p *ngIf="canbook==false" [ngStyle]="{'color': 'red'}"><strong>You can book maximum of 6</strong></p>
+
+
   <h4>Seat Chart</h4>
-  <ng-container *ngIf="(data | async) as d">
+  <ng-container *ngIf="(data | async) as d"  >
 
-    <p>Total {{d.total}} ::Booked: {{d.booked}} ::Remaining:: {{d.remaining}}</p>
+    <p *ngIf="seatavailable==true && canbook==true" [ngStyle]="{'color': 'blue'}">Total {{d.total}} ::Booked: {{d.booked}} ::Remaining:: {{d.remaining}}</p>
 
-    <ng-container *ngFor="let r of d.seatChart">
+    <ng-container *ngFor="let r of d.seatChart" >
 
       <div class="coach_row">
         <div class="box rowx"> Row {{r.row}} </div>
         <ng-container *ngIf="r.row !== 12">
 
           <ng-container *ngFor="let n of sevenSeater;">
-            <div class="box seat" [ngClass]="checkBook(n,r.row,r.rowbooked_seats) ? 'booked': 'notbooked'">
+            <div  class="box seat" [ngClass]="checkBook(n,r.row,r.rowbooked_seats) ? 'booked': 'notbooked'">
               {{n + r.rowstart-1}}</div>
           </ng-container>
 
@@ -21,7 +27,7 @@
         <ng-container *ngIf="r.row === 12">
 
           <ng-container *ngFor="let n of threeSeater;">
-            <div class="box seat" [ngClass]="checkBook(n,r.row, r.rowbooked_seats) ? 'booked': 'notbooked'">
+            <div class="box seat"  [ngClass]="checkBook(n,r.row, r.rowbooked_seats) ? 'booked': 'notbooked'">
               {{n + r.rowstart-1}}</div>
           </ng-container>
 
@@ -33,5 +39,4 @@
     </ng-container>
   </ng-container>
 </div>
-<br>
-<button (click)="selectseats()">Select Seats</button>
+
