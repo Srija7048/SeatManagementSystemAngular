@@ -1,0 +1,37 @@
+
+<div class="col-sm-7">
+  <h4>Seat Chart</h4>
+  <ng-container *ngIf="(data | async) as d">
+
+    <p>Total {{d.total}} ::Booked: {{d.booked}} ::Remaining:: {{d.remaining}}</p>
+
+    <ng-container *ngFor="let r of d.seatChart">
+
+      <div class="coach_row">
+        <div class="box rowx"> Row {{r.row}} </div>
+        <ng-container *ngIf="r.row !== 12">
+
+          <ng-container *ngFor="let n of sevenSeater;">
+            <div class="box seat" [ngClass]="checkBook(n,r.row,r.rowbooked_seats) ? 'booked': 'notbooked'">
+              {{n + r.rowstart-1}}</div>
+          </ng-container>
+
+        </ng-container>
+
+        <ng-container *ngIf="r.row === 12">
+
+          <ng-container *ngFor="let n of threeSeater;">
+            <div class="box seat" [ngClass]="checkBook(n,r.row, r.rowbooked_seats) ? 'booked': 'notbooked'">
+              {{n + r.rowstart-1}}</div>
+          </ng-container>
+
+        </ng-container>
+
+
+      </div>
+
+    </ng-container>
+  </ng-container>
+</div>
+<br>
+<button (click)="selectseats()">Select Seats</button>

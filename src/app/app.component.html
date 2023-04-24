@@ -1,0 +1,9 @@
+<h1 [ngStyle]="{'text-align': 'center'}">Book Your Seats</h1>
+<label for="seats"><b>Enter Number of Seats</b>&nbsp;&nbsp;&nbsp;
+  <input type="text" [formControl]="seats">
+</label>&nbsp;&nbsp;
+<button (click)="submit()">SUBMIT</button>
+<div *ngIf="ifsubmit==true">
+  <app-seat [noofseats]="noofseats"></app-seat>
+</div>
+
